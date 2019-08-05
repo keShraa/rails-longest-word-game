@@ -1,0 +1,18 @@
+<% require 'open-uri'%>
+<% require 'json' %>
+
+<h1>Result</h1>
+<% if @result %>
+  <p><strong>Congratulations!</strong> <%= @word.upcase %> is a valid English word!</p>
+<% else %>
+  <ul class="list-inline">
+    <p>Sorry, but <strong><%= @word.upcase %></strong> can't be built out of <%= @letters.split.join(", ") %></p>
+  </ul>
+<% end %>
+<a href="/new" class="btn btn-success">Play again</a>
+
+
+  <% url = "https://wagon-dictionary.herokuapp.com/#{@word}" %>
+  # {"found": boolean, "word": "word", "length": 7 || error": "message"}
+  <% api_infos = JSON.parse(open(url).read)%>
+
